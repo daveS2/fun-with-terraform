@@ -17,7 +17,7 @@ variable "loops_map_of_objects" {
 
 /*
 Shows a loop running against the variable loops_map_of_objects which then outputs based on a conditional.
-This shows how the loop can access objects in a map, and how the result of the conditional is returned
+This shows how the loop can access objects in a map, and how the result of the conditional is returnedc
 */
 locals {
   loop_to_show_how_the_result_is_returned = [for item in var.loops_map_of_objects : item.name != "" ? true : false]
