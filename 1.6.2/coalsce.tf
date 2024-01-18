@@ -1,14 +1,14 @@
-locals{
-    coalsce-list-2-elements=["picklerick","rick"]
-    coalsce-list-empty=[]
-    coalsce-null=null
+locals {
+  coalsce-list-2-elements = ["picklerick", "rick"]
+  coalsce-list-empty      = []
+  coalsce-null            = null
 }
 
 /*
 If given a list coalsce will return the whole list if first
 */
 output "coalsce-list" {
-    value = coalesce(local.coalsce-list-2-elements)
+  value = coalesce(local.coalsce-list-2-elements)
 }
 
 /*
@@ -23,14 +23,14 @@ output "coalsce-list-and-string" {
 Straight forward string example
 */
 output "coalsce-string-and-string" {
-    value = coalesce("birdperson","squanchy")
+  value = coalesce("birdperson", "squanchy")
 }
 
 /*
 Coalsce can work with an empty list
 */
 output "colasce-empty-list" {
-    value = coalesce(local.coalsce-list-empty)
+  value = coalesce(local.coalsce-list-empty)
 }
 
 /*
@@ -44,5 +44,5 @@ output "null-coal" {
 How to convert a null to support coalse
 */
 output "null-coal" {
-    value = local.emptynull == null ? [] : coalesce(local.coalsce-null)
+  value = local.emptynull == null ? [] : coalesce(local.coalsce-null)
 }

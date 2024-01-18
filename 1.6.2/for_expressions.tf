@@ -12,17 +12,29 @@ variable "loops_map_of_objects" {
       name = ""
       env  = "bar-dev"
     }
+    item3 = {
+      name = "rar"
+      env  = ""
+    }
   }
 }
 
-/*
-Shows a loop running against the variable loops_map_of_objects which then outputs based on a conditional.
-This shows how the loop can access objects in a map, and how the result of the conditional is returned
-*/
 locals {
-  loop_to_show_how_the_result_is_returned = [for item in var.loops_map_of_objects : item.name != "" ? true : false]
+  /*
+Shows a loop running against the variable loops_map_of_objects which then outputs based on a conditional.
+This shows how the loop can access objects in a map, and how the result of the conditional is returned.
+*/
+  loop_to_show_how_the_result_is_returned_one_conditional = [for item in var.loops_map_of_objects : item.name == "" ? "${item.name} is true" : "${item.name} is false"]
+  /*
+Shows a loop running against the variable loops_map_of_objects which then outputs based on an OR.
+This shows how the loop can access objects in a map, and how the result of the conditional is returned.
+*/
+  loop_to_show_how_the_result_is_returned_with_an_or = [for item in var.loops_map_of_objects : item.name == "" || item.env == "" ? "${item.name},${item.env} is true" : "${item.name},${item.env} is false"]
 }
 
-output "loops_how_the_result_is_returned_from_a_for_loop"{
-  value = local.loop_to_show_how_the_result_is_returned
+output "loops_how_the_result_is_returned_from_a_for_loop_one_conditional" {
+  value = local.loop_to_show_how_the_result_is_returned_one_conditional
+}
+output "loops_how_the_result_is_returned_from_a_for_loop_with_an_or" {
+  value = local.loop_to_show_how_the_result_is_returned_with_an_or
 }
