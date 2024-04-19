@@ -1,4 +1,4 @@
-name: 'Terraform'
+name: 'Terraform 1.6'
 
 on:
   push:
@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   terraform:
-    name: 'Terraform'
+    name: 'Terraform 1.6'
     runs-on: ubuntu-latest
     environment: fun-with-terraform
 
