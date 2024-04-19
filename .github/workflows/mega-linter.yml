@@ -40,6 +40,7 @@
         # Give the default GITHUB_TOKEN write permission to commit and push, comment
         # issues & post new PR; remove the ones you do not need
         permissions:
+        #checkov:skip=CKV2_GHA_1: Needed for functionality
           contents: write
           issues: write
           pull-requests: write
@@ -61,7 +62,7 @@
     
             # You can override MegaLinter flavor used to have faster performances
             # More info at https://megalinter.io/flavors/
-            uses: oxsecurity/megalinter@v7
+            uses: oxsecurity/megalinter@a7a0163b6c8ff7474a283d99a706e27483ddd80f
     
             id: ml
     
@@ -136,7 +137,7 @@
           # Create pull request if applicable
           # (for now works only on PR from same repository, not from forks)
           - name: Create Pull Request with applied fixes
-            uses: peter-evans/create-pull-request@v6
+            uses: peter-evans/create-pull-request@v69153d834b60caba6d51c9b9510b087acf9f33f83
             id: cpr
             if: env.APPLY_FIXES_IF_PR == 'true'
             with:
@@ -158,7 +159,7 @@
             run: sudo chown -Rc $UID .git/
     
           - name: Commit and push applied linter fixes
-            uses: stefanzweifel/git-auto-commit-action@v4
+            uses: stefanzweifel/git-auto-commit-action@8621497c8c39c72f3e2a999a26b4ca1b5058a842
             if: env.APPLY_FIXES_IF_COMMIT == 'true'
             with:
               branch: >-
