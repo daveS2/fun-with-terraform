@@ -40,6 +40,12 @@ jobs:
     - name: Terraform Format
       run: terraform fmt -recursive -check
 
+    # Checks that the tests are passing.
+    - name: Terraform Test
+      run: |
+        cd "1.6"
+        terraform test
+
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       run: |
