@@ -6,14 +6,9 @@
     # Trigger mega-linter at every push. Action will also be visible from Pull
     # Requests to main
     on:
-      # Comment this line to trigger action only on pull-requests
-      # (not recommended if you don't pay for GH Actions)
-      push:
-    
-      pull_request:
-        branches:
-          - main
-          - master
+        push:
+          branches: [ "main" ]
+        pull_request:
     
     # Comment env block if you do not want to apply fixes
     env:
@@ -43,6 +38,7 @@
         # Give the default GITHUB_TOKEN write permission to commit and push, comment
         # issues & post new PR; remove the ones you do not need
         permissions:
+        #checkov:skip=CKV2_GHA_1: Needed for functionality
           contents: write
           issues: write
           pull-requests: write
