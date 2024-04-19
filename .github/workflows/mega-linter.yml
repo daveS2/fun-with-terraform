@@ -26,7 +26,7 @@
       # or posted in a PR (pull_request)
       APPLY_FIXES_MODE: commit
 
-      DISABLE_LINTERS: SPELL_CSPELL, SPELL_LYCHEE
+      DISABLE_LINTERS: SPELL_CSPELL,SPELL_LYCHEE
     
     concurrency:
       group: ${{ github.ref }}-${{ github.workflow }}
