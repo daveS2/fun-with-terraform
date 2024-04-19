@@ -47,5 +47,5 @@ output "null-coal" {
 How to convert a null to support coalse
 */
 output "null-coal" {
-  value = local.emptynull == null ? [] : coalesce(local.coalsce-null)
+  value = local.coalsce-null == null ? [] : coalesce(local.coalsce-null)
 }
