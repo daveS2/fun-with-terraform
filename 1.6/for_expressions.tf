@@ -40,7 +40,8 @@ For each object in the variable
   Access the key.value within the object and return
 */
 output "for_expressions" {
-  value = [for item in var.for_expressions_map_of_objects : item]
+  description = "for_expressions"
+  value       = [for item in var.for_expressions_map_of_objects : item]
 }
 
 /*
@@ -50,7 +51,8 @@ For each object in the variable
     If the (key=name and the value is "") then true, else false as list of values
 */
 output "for_expressions_filtering_conditional" {
-  value = [for item in var.for_expressions_map_of_objects : item.name == "" ? "${item.name} is true" : "${item.name} is false"]
+  description = "for_expressions_filtering_conditional"
+  value       = [for item in var.for_expressions_map_of_objects : item.name == "" ? "${item.name} is true" : "${item.name} is false"]
 }
 
 /*
@@ -60,7 +62,8 @@ For each object in the variable
   If the (key=name and the value is "") or (key=env and the value is "") then true else false as list of values
 */
 output "for_expressions_filtering_or_conditional" {
-  value = [for item in var.for_expressions_map_of_objects : item.name == "" || item.env == "" ? "${item.name},${item.env} is true" : "${item.name},${item.env} is false"]
+  description = "for_expressions_filtering_or_conditional"
+  value       = [for item in var.for_expressions_map_of_objects : item.name == "" || item.env == "" ? "${item.name},${item.env} is true" : "${item.name},${item.env} is false"]
 }
 
 /*
@@ -70,7 +73,8 @@ For each object in the variable
   If the (key=name and the value is "") or (key=env and the value is "") then true else false as list of values (Empty in this exampe)
 */
 output "for_expressions_filtering_and_conditional" {
-  value = [for item in var.for_expressions_map_of_objects : item.name == "" && item.env == "" ? "${item.name},${item.env} is true" : "${item.name},${item.env} is false"]
+  description = "for_expressions_filtering_and_conditional"
+  value       = [for item in var.for_expressions_map_of_objects : item.name == "" && item.env == "" ? "${item.name},${item.env} is true" : "${item.name},${item.env} is false"]
 }
 
 /*
@@ -79,7 +83,8 @@ for {key, value}  in the variable
   return {key, value}
 */
 output "for_expression_map_returned" {
-  value = { for key, value in var.for_expressions_map_of_objects : key => value }
+  description = "for_expression_map_returned"
+  value       = { for key, value in var.for_expressions_map_of_objects : key => value }
 }
 
 /*
@@ -89,14 +94,16 @@ for {key, value}  in the variable
     else do not return an object
 */
 output "for_expression_map_returned_conditional" {
-  value = { for key, value in var.for_expressions_map_of_objects : key => value if value == "foo-dev" }
+  description = "for_expression_flatten_objects_into_a_list"
+  value       = { for key, value in var.for_expressions_map_of_objects : key => value if value == "foo-dev" }
 }
 
 /*
 Shows flatten objects and returning a list
 */
 output "for_expression_flatten_objects_into_a_list" {
-  value = [for key, mapd in var.for_expressions_map_of_objects : "${mapd.name}-${mapd.env}"]
+  description = "for_expression_flatten_objects_into_a_list"
+  value       = [for key, mapd in var.for_expressions_map_of_objects : "${mapd.name}-${mapd.env}"]
 }
 
 /*
@@ -108,6 +115,7 @@ For key and value in the variable
   group
 */
 output "for_expression_extreme_grouping" {
+  description = "for_expression_extreme_grouping"
   value = merge([
     for item-key, item-value in var.for_expressions_map_of_objects_with_a_list :
     {
