@@ -1,6 +1,7 @@
 # https://developer.hashicorp.com/terraform/language/expressions/for
 
 variable "for_expressions_map_of_objects" {
+  description = "A map of objects with key value pairs"
   type = map(object({
     name = string
     env  = string
@@ -22,6 +23,7 @@ variable "for_expressions_map_of_objects" {
 }
 
 variable "for_expressions_map_of_objects_with_a_list" {
+  description = "A map of objects with a single key value pair where the value is a list"
   type = map(object({
     shopping_list = list(string)
   }))
