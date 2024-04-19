@@ -1,5 +1,6 @@
 # fun-with-terraform
-A repository to demonstrate pure Terraform functionality.
+A repository to demonstrate pure Terraform functionality. The examples are copied between minor versions of Terraform e.g 1.6 or 0.14.
+
 
 ## How to Run
 Chose which version of Terraform you want to run
