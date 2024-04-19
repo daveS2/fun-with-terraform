@@ -10,7 +10,8 @@ locals {
 If given a list coalsce will return the whole list if first
 */
 output "coalsce-list" {
-  value = coalesce(local.coalsce-list-2-elements)
+  description = "coalsce-list"
+  value       = coalesce(local.coalsce-list-2-elements)
 }
 
 /*
@@ -25,14 +26,16 @@ output "coalsce-list-and-string" {
 Straight forward string example
 */
 output "coalsce-string-and-string" {
-  value = coalesce("birdperson", "squanchy")
+  description = "coalsce-string-and-string"
+  value       = coalesce("birdperson", "squanchy")
 }
 
 /*
 Coalsce can work with an empty list
 */
 output "colasce-empty-list" {
-  value = coalesce(local.coalsce-list-empty)
+  description = "colasce-empty-list"
+  value       = coalesce(local.coalsce-list-empty)
 }
 
 /*
@@ -47,9 +50,11 @@ How to convert a null to support coalse
 */
 
 output "null-coal-list" {
-  value = local.coalsce-null == null ? [] : coalesce(local.coalsce-null)
+  description = "null-coal-list"
+  value       = local.coalsce-null == null ? [] : coalesce(local.coalsce-null)
 }
 
 output "null-coal-string" {
-  value = local.coalsce-null == null ? "" : coalesce(local.coalsce-null)
+  description = "null-coal-string"
+  value       = local.coalsce-null == null ? "" : coalesce(local.coalsce-null)
 }
