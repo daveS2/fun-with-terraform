@@ -2,7 +2,7 @@
 Feel free to raise a Pull Request.
 
 ## Repository Set-up
-Create folder or reuse existing folder than corresponds to the version of Terraform you are having fun with.
+Create folder or reuse existing folder than corresponds to the version (Major/Minor) of Terraform you are having fun with.
 Using only raw Terraform create a well commented example of how you would like to have fun.
 
 ## Why
