@@ -1,62 +1,43 @@
-name: 'Terraform 1.7'
-
+---
+name: Terraform 1.7
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-
+    branches:
+      - main
+  pull_request: null
 permissions:
   contents: read
-
 jobs:
   terraform:
-    name: 'Terraform 1.7'
+    name: Terraform 1.7
     runs-on: ubuntu-latest
     environment: fun-with-terraform
-
-    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
       run:
         shell: bash
-
     steps:
-    # Checkout the repository to the GitHub Actions runner
-    - name: Checkout
-      uses: actions/checkout@v3
-
-    # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@a1502cd9e758c50496cc9ac5308c4843bcd56d36
-      with:
-        terraform_version: "1.7.5"
-
-    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
-    - name: Terraform Init
-      run: |
-        cd "1.7"
-        terraform init
-
-    # Checks that all Terraform configuration files adhere to a canonical format
-    - name: Terraform Format
-      run: terraform fmt -recursive -check
-
-    # Checks that the tests are passing.
-    - name: Terraform Test
-      run: |
-        cd "1.7"
-        terraform test
-        
-
-    # Generates an execution plan for Terraform
-    - name: Terraform Plan
-      run: |
-        cd "1.7"
-        terraform plan -input=false
-
-      # On push to "main", build or change infrastructure according to Terraform configuration files
-      # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
-    - name: Terraform Apply
-      if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
-      run: |
-        cd "1.7"
-        terraform apply -auto-approve -input=false
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@a1502cd9e758c50496cc9ac5308c4843bcd56d36
+        with:
+          terraform_version: 1.7.5
+      - name: Terraform Init
+        run: |
+          cd "1.7"
+          terraform init
+      - name: Terraform Format
+        run: terraform fmt -recursive -check
+      - name: Terraform Test
+        run: |
+          cd "1.7"
+          terraform test
+      - name: Terraform Plan
+        run: |
+          cd "1.7"
+          terraform plan -input=false
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
+        run: |
+          cd "1.7"
+          terraform apply -auto-approve -input=false
