@@ -4,7 +4,6 @@ locals {
   coalsce-list-2-elements = ["picklerick", "rick"]
   coalsce-list-empty      = []
   coalsce-null            = null
-
 }
 
 /*
@@ -46,6 +45,11 @@ output "null-coal" {
 /* 
 How to convert a null to support coalse
 */
-output "null-coal" {
+
+output "null-coal-list" {
   value = local.coalsce-null == null ? [] : coalesce(local.coalsce-null)
+}
+
+output "null-coal-string" {
+  value = local.coalsce-null == null ? "" : coalesce(local.coalsce-null)
 }
