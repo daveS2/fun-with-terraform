@@ -45,6 +45,7 @@ jobs:
       run: |
         cd "1.6"
         terraform test
+        
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
