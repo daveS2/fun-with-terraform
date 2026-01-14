@@ -34,6 +34,21 @@ variable "for_expressions_map_of_objects_with_a_list" {
   }
 }
 
+variable "for_expressions_map_of_objects_with_a_list_2" {
+  description = "A map of objects with a single key value pair where the value is a list"
+  type = map(object({
+    shopping_list = list(string)
+  }))
+  default = {
+    item1 = {
+      shopping_list = ["bacon", "pork loin", "zebra fillet steak"]
+    },
+    item2 = {
+      shopping_list = ["bacon2", "pork loin2", "zebra fillet steak2"]
+    }
+  }
+}
+
 /*
 Shows a loop running against the variable, basically the same thing as inputted except it's a list
 For each object in the variable
@@ -121,6 +136,20 @@ output "for_expression_extreme_grouping" {
     {
       for shopping_list_key, shopping_list_item in item-value.shopping_list :
       "${item-key}-${shopping_list_item}" => {
+        item_key           = item-key
+        shopping_list_item = shopping_list_item
+      }
+    }
+  ]...)
+}
+
+output "for_expression_extreme_grouping2" {
+  description = "for_expression_extreme_grouping"
+  value = merge([
+    for item-key, item-value in var.for_expressions_map_of_objects_with_a_list_2 :
+    {
+      for shopping_list_key, shopping_list_item in item-value.shopping_list :
+      shopping_list_item => {
         item_key           = item-key
         shopping_list_item = shopping_list_item
       }
