@@ -1,6 +1,7 @@
 # https://developer.hashicorp.com/terraform/language/expressions/for
 
 variable "for_expressions_map_of_objects" {
+  description = "A map of objects with key value pairs"
   type = map(object({
     name = string
     env  = string
@@ -22,6 +23,7 @@ variable "for_expressions_map_of_objects" {
 }
 
 variable "for_expressions_map_of_objects_with_a_list" {
+  description = "A map of objects with a single key value pair where the value is a list"
   type = map(object({
     shopping_list = list(string)
   }))
@@ -32,13 +34,29 @@ variable "for_expressions_map_of_objects_with_a_list" {
   }
 }
 
+variable "for_expressions_map_of_objects_with_a_list_2" {
+  description = "A map of objects with a single key value pair where the value is a list"
+  type = map(object({
+    shopping_list = list(string)
+  }))
+  default = {
+    item1 = {
+      shopping_list = ["bacon", "pork loin", "zebra fillet steak"]
+    },
+    item2 = {
+      shopping_list = ["bacon2", "pork loin2", "zebra fillet steak2"]
+    }
+  }
+}
+
 /*
 Shows a loop running against the variable, basically the same thing as inputted except it's a list
 For each object in the variable
   Access the key.value within the object and return
 */
 output "for_expressions" {
-  value = [for item in var.for_expressions_map_of_objects : item]
+  description = "for_expressions"
+  value       = [for item in var.for_expressions_map_of_objects : item]
 }
 
 /*
@@ -48,7 +66,8 @@ For each object in the variable
     If the (key=name and the value is "") then true, else false as list of values
 */
 output "for_expressions_filtering_conditional" {
-  value = [for item in var.for_expressions_map_of_objects : item.name == "" ? "${item.name} is true" : "${item.name} is false"]
+  description = "for_expressions_filtering_conditional"
+  value       = [for item in var.for_expressions_map_of_objects : item.name == "" ? "${item.name} is true" : "${item.name} is false"]
 }
 
 /*
@@ -58,7 +77,8 @@ For each object in the variable
   If the (key=name and the value is "") or (key=env and the value is "") then true else false as list of values
 */
 output "for_expressions_filtering_or_conditional" {
-  value = [for item in var.for_expressions_map_of_objects : item.name == "" || item.env == "" ? "${item.name},${item.env} is true" : "${item.name},${item.env} is false"]
+  description = "for_expressions_filtering_or_conditional"
+  value       = [for item in var.for_expressions_map_of_objects : item.name == "" || item.env == "" ? "${item.name},${item.env} is true" : "${item.name},${item.env} is false"]
 }
 
 /*
@@ -68,7 +88,8 @@ For each object in the variable
   If the (key=name and the value is "") or (key=env and the value is "") then true else false as list of values (Empty in this exampe)
 */
 output "for_expressions_filtering_and_conditional" {
-  value = [for item in var.for_expressions_map_of_objects : item.name == "" && item.env == "" ? "${item.name},${item.env} is true" : "${item.name},${item.env} is false"]
+  description = "for_expressions_filtering_and_conditional"
+  value       = [for item in var.for_expressions_map_of_objects : item.name == "" && item.env == "" ? "${item.name},${item.env} is true" : "${item.name},${item.env} is false"]
 }
 
 /*
@@ -77,7 +98,8 @@ for {key, value}  in the variable
   return {key, value}
 */
 output "for_expression_map_returned" {
-  value = { for key, value in var.for_expressions_map_of_objects : key => value }
+  description = "for_expression_map_returned"
+  value       = { for key, value in var.for_expressions_map_of_objects : key => value }
 }
 
 /*
@@ -87,14 +109,16 @@ for {key, value}  in the variable
     else do not return an object
 */
 output "for_expression_map_returned_conditional" {
-  value = { for key, value in var.for_expressions_map_of_objects : key => value if value == "foo-dev" }
+  description = "for_expression_flatten_objects_into_a_list"
+  value       = { for key, value in var.for_expressions_map_of_objects : key => value if value == "foo-dev" }
 }
 
 /*
 Shows flatten objects and returning a list
 */
 output "for_expression_flatten_objects_into_a_list" {
-  value = [for key, mapd in var.for_expressions_map_of_objects : "${mapd.name}-${mapd.env}"]
+  description = "for_expression_flatten_objects_into_a_list"
+  value       = [for key, mapd in var.for_expressions_map_of_objects : "${mapd.name}-${mapd.env}"]
 }
 
 /*
@@ -106,11 +130,26 @@ For key and value in the variable
   group
 */
 output "for_expression_extreme_grouping" {
+  description = "for_expression_extreme_grouping"
   value = merge([
     for item-key, item-value in var.for_expressions_map_of_objects_with_a_list :
     {
       for shopping_list_key, shopping_list_item in item-value.shopping_list :
       "${item-key}-${shopping_list_item}" => {
+        item_key           = item-key
+        shopping_list_item = shopping_list_item
+      }
+    }
+  ]...)
+}
+
+output "for_expression_extreme_grouping2" {
+  description = "for_expression_extreme_grouping"
+  value = merge([
+    for item-key, item-value in var.for_expressions_map_of_objects_with_a_list_2 :
+    {
+      for shopping_list_key, shopping_list_item in item-value.shopping_list :
+      shopping_list_item => {
         item_key           = item-key
         shopping_list_item = shopping_list_item
       }
