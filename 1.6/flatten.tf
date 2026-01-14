@@ -7,16 +7,20 @@ locals {
 
 output "flatten_list_with_objects" {
   value = flatten(local.flatten_list_with_objects)
+  description = "flatten_list_with_objects"
 }
 
 output "flatten_list_with_null" {
   value = flatten(local.flatten_list_with_null)
+  description = "flatten_list_with_null"
 }
 
 output "flatten_list_with_objects_and_null" {
   value = flatten(local.flatten_list_with_objects_and_null)
+  description = "flatten_list_with_objects_and_null"
 }
 
 output "flatten_list_with_list_objects_and_list_null" {
   value = flatten(local.flatten_list_with_list_objects_and_list_null)
+  description = "flatten_list_with_list_objects_and_list_null"
 }
